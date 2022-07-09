@@ -4,12 +4,24 @@ const formEl = document.querySelector('.feedback-form');
 const emailEl = formEl.elements[(name = 'email')];
 const textEl = formEl.elements[(name = 'message')];
 const KEY_FEEDBACK = 'feedback-form-state';
-const formData = {};
-
+const formData = {
+  email: null,
+  message: null,
+};
+formData.email = JSON.parse(localStorage.getItem(KEY_FEEDBACK)).email;
+formData.message = JSON.parse(localStorage.getItem(KEY_FEEDBACK)).message;
 const userEp = () => {
   if (localStorage.length === 0) return;
-  emailEl.value = JSON.parse(localStorage.getItem(KEY_FEEDBACK)).email;
-  textEl.value = JSON.parse(localStorage.getItem(KEY_FEEDBACK)).message;
+  if (JSON.parse(localStorage.getItem(KEY_FEEDBACK)).email) {
+    emailEl.value = JSON.parse(localStorage.getItem(KEY_FEEDBACK)).email;
+  } else {
+    emailEl.value = ' ';
+  }
+  if (JSON.parse(localStorage.getItem(KEY_FEEDBACK)).message) {
+    textEl.value = JSON.parse(localStorage.getItem(KEY_FEEDBACK)).message;
+  } else {
+    textEl.value = ' ';
+  }
 };
 
 const onInputValuePush = evt => {
